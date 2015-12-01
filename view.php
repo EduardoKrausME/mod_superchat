@@ -71,7 +71,7 @@ $PAGE->set_url('/mod/superchat/view.php', array('id' => $cm->id));
     <title><?php echo $superchat->name ?></title>
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700" rel="stylesheet" type="text/css">
-    <link href="<?php echo $CFG->wwwroot ?>/mod/superchat/css/stylesheet-v2.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $CFG->wwwroot ?>/mod/superchat/css/stylesheet-v3.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -148,7 +148,7 @@ $PAGE->set_url('/mod/superchat/view.php', array('id' => $cm->id));
 
 <script src="<?php echo $CFG->wwwroot ?>/mod/superchat/js/socket.io.js"></script>
 <script src="<?php echo $CFG->wwwroot ?>/mod/superchat/js/jquery.min.js"></script>
-<script src="<?php echo $CFG->wwwroot ?>/mod/superchat/js/chat-v2.js"></script>
+<script src="<?php echo $CFG->wwwroot ?>/mod/superchat/js/chat-v3.js"></script>
 
 </body>
 </html>
