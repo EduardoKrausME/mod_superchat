@@ -17,15 +17,10 @@
 /**
  * Prints a particular instance of superchat
  *
- * You can have a rather longer description of the file as well,
- * if you like, and it can span multiple lines.
- *
  * @package    mod_superchat
  * @copyright  2015 Eduardo Kraus
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-// Replace superchat with the name of your module and remove this line.
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
@@ -45,7 +40,7 @@ if ($id) {
     error('You must specify a course_module ID or an instance ID');
 }
 
-require_login($course, true, $cm);
+require_login ( $course, true, $cm );
 
 $event = \mod_superchat\event\course_module_viewed::create(array(
     'objectid' => $PAGE->cm->instance,
@@ -57,10 +52,9 @@ $event->trigger();
 
 // Print the page header.
 
-$PAGE->set_url('/mod/superchat/view.php', array('id' => $cm->id));
-//$PAGE->set_title(format_string($superchat->name));
-//$PAGE->set_heading(format_string($course->fullname));
+$PAGE->set_url ( '/mod/superchat/view.php', array ( 'id' => $cm->id ) );
 
+// Page Chat
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -80,19 +74,23 @@ $PAGE->set_url('/mod/superchat/view.php', array('id' => $cm->id));
     <div id="user-section">
         <div class="user-screen">
             <div class="students no-text">
-                Alunos deste Chat
+                <?php echo get_string('studentsinthischat_title', 'superchat') ?>
             </div>
             <ul id="users">
                 <?php
+
+                // get a context by course
                 $context = context_course::instance($course->id );
 
+                // list all users
                 $query = "SELECT u.id as id, firstname, lastname, picture, imagealt, email, roleid
                                  FROM {role_assignments} as a
                                  JOIN {user} as u ON a.userid=u.id
                                WHERE contextid=" . $context->id . "
                                ORDER BY roleid, firstname, lastname";
-
                 $students = $DB->get_recordset_sql( $query );
+
+                // print all users
                 foreach( $students as $student ) {?>
                     <li id="student_<?php echo $student->id ?>">
                         <?php
@@ -104,7 +102,7 @@ $PAGE->set_url('/mod/superchat/view.php', array('id' => $cm->id));
                         <img src="<?php echo $image ?>" alt="<?php echo $student->firstname ?>">
                         <span class="user-name no-text"><?php echo $student->firstname . ' ' . $student->lastname ?></span>
                         <span class="user-status no-text"><?php
-                            echo ( $student->roleid == 5 ) ? 'Aluno' : 'Professor' ;
+                            echo ( $student->roleid == 5 ) ? get_string('student', 'superchat') : get_string('teacher', 'superchat') ;
                             ?></span>
                     </li>
                 <?php
@@ -116,8 +114,7 @@ $PAGE->set_url('/mod/superchat/view.php', array('id' => $cm->id));
 
     <div id="chat-section">
         <div class="chat-screen">
-            <ul id="chats">
-            </ul>
+            <ul id="chats"></ul>
         </div>
         <div id="chatfooter">
             <?php
@@ -137,16 +134,17 @@ $PAGE->set_url('/mod/superchat/view.php', array('id' => $cm->id));
                 ?>">
             <div class="message-area">
                 <div id="message-background"></div>
-                <div id="message-placeholder">Digite uma mensagem</div>
-                <div id="message" placeholder="Digite uma mensagem" dir="auto" contenteditable="true" class="input"></div>
+                <div id="message-placeholder"><?php echo get_string('typeamessage', 'superchat') ?></div>
+                <div id="message" dir="auto" contenteditable="true" class="input"></div>
             </div>
 
-            <input type="submit" id="submit" value="SEND" disabled class="disabled"/>
+            <input type="submit" id="submit" value="<?php echo get_string('send', 'superchat') ?>"
+                   disabled class="disabled"/>
         </div>
     </div>
 </section>
 
-<script src="<?php echo $CFG->wwwroot ?>/mod/superchat/js/socket.io.js"></script>
+<script src="http://<?php echo $config->server ?>:<?php echo $config->port ?>/socket.io/socket.io.js"></script>
 <script src="<?php echo $CFG->wwwroot ?>/mod/superchat/js/jquery.min.js"></script>
 <script src="<?php echo $CFG->wwwroot ?>/mod/superchat/js/chat-v3.js"></script>
 

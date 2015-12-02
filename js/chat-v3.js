@@ -1,3 +1,4 @@
+// only execute on start jquery
 $(function() {
     var chats = $("#chats"),
         submit = $('#submit'),
@@ -11,10 +12,13 @@ $(function() {
         ultimaMensagemDe = 0,
         ultimaDataPostada = getDataAtual();
 
+    // Hide the footer to connect
     chatfooter.hide();
 
+    // Connects to the server node js
     var socketio = io.connect($('#server_host').val()+":"+$('#server_port').val());
 
+    // When connecting make:
     socketio.on('connect', function()
     {
         socketio.emit( "login",
@@ -26,11 +30,15 @@ $(function() {
             }
         );
 
+        // Show message área
         chatfooter.show();
+        // Clear message area
         message.html('').focus();
+        // resize background área
         resizeBackgroundMessage();
     });
 
+    // When you receive a new message do:
     socketio.on("message_to_client", function (data)
     {
         var messageText = data.message;
@@ -47,9 +55,12 @@ $(function() {
         if (data.userid == userid.val())
             who = 'me';
 
+        // Mounts the message
         var li = null;
         if( ultimaMensagemDe == data.userid )
         {
+            // If the last message sent chatting is not that person,
+            // places the image
             li = $(
                 '<li class="' + who + ' no-name">' +
                     '<div class="image off"></div>' +
@@ -61,6 +72,7 @@ $(function() {
                 '</li>');
         }
         else{
+            // Otherwise poses no image
             li = $(
                 '<li class=' + who + '>' +
                     '<div class="image">' +
@@ -75,30 +87,39 @@ $(function() {
                 '</li>');
         }
 
+        // Guard who wrote
         ultimaMensagemDe = data.userid;
 
+        // add to actual chat
         chats.append(li);
+        // Scroll to booton
         scrollToBottom();
     });
 
+    // if the user is the ONline do:
     socketio.on("online", function (data) {
         $('#student_' + data.userid).addClass('online');
 
         if (data.userid != userid.val())
             addMessageStatus(data.fullname + " ENTROU");
     });
+    // if the user is the OFFline do:
     socketio.on("offline", function (data) {
         $('#student_' + data.userid).removeClass('online');
         if (data.userid != userid.val())
             addMessageStatus(data.fullname + " SAIU");
     });
 
+    // Click send message
     submit.click(sendMessage);
+    // pressed enter
     message.keypress(function (event) {
         if ( event.which == 13 && !event.shiftKey )
             sendMessage();
     });
-    message.keyup(function (event){
+    // keyup event
+    message.keyup(function (event)
+    {
         if( message.text().trim().length > 0 )
         {
             if( message.html().indexOf('<') != -1 )
@@ -168,6 +189,7 @@ $(function() {
             return "0" + num;
         return "" + num;
     }
+
 
     function resizeBackgroundMessage() {
         messageBackground.height( message.height()+1 );

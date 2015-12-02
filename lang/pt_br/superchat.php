@@ -27,12 +27,19 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['modulename'] = 'Super Chat';
 $string['modulenameplural'] = 'Super Chats';
-$string['modulename_help'] = 'Use the superchat module for... | The superchat module allows...';
+$string[ 'modulename_help' ] = '<p>O módulo Super Chat permite que os participantes possam conversar em tempo real.</p>';
 $string['superchatname'] = 'Nome desta sala';
-$string['superchatname_help'] = 'This is the content of the help tooltip associated with the superchatname field. Markdown syntax is supported.';
+$string['superchatname_help'] = '';
 $string['superchat'] = 'superchat';
 $string['pluginadministration'] = 'Super Chat administration';
 $string['pluginname'] = 'Super Chat';
 
 $string['popupname'] = 'Abrir em Pop-up';
 $string['popupdescription'] = 'Abrir o Super Chat em Pop-up?';
+
+// view.php
+$string['studentsinthischat_title'] = 'Alunos deste Chat';
+$string['typeamessage'] = 'Digite uma mensagem';
+$string['send'] = 'SEND';
+$string['student'] = 'Aluno';
+$string['teacher'] = 'Professor';

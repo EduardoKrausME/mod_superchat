@@ -1,9 +1,19 @@
+// Node JS port
 var httpPort    = 8080;
 
+// Starts listening port
 var io = require( 'socket.io' ).listen(httpPort);
 
+/**
+ * Each new connection is treated here
+ */
 io.sockets.on('connection', function(socket) {
 
+    /**
+     * Login
+     *
+     * * * * * You have to add security
+     */
     socket.on('login', function(data) {
 
         socket.userid   = data.userid;
@@ -14,6 +24,7 @@ io.sockets.on('connection', function(socket) {
         // join the room
         socket.join( data.room );
 
+        // Send message to all connected warning connection
         io.in(socket.room).emit("online",
             {
                 userid   : socket.userid,
@@ -22,11 +33,15 @@ io.sockets.on('connection', function(socket) {
         );
     });
 
+    /**
+     * When someone leaves the room
+     */
     socket.on('disconnect', function() {
 
         // leave the room
         socket.leave(socket.room);
 
+        // Send message to all connected warning output
         io.in(socket.room).emit("offline",
             {
                 userid   : socket.userid,
@@ -35,6 +50,9 @@ io.sockets.on('connection', function(socket) {
         );
     });
 
+    /**
+     * Receive and treat the Chat messages
+     */
 	socket.on('message_to_server', function(data) {
 
         var messageText = data["message"];
@@ -42,6 +60,7 @@ io.sockets.on('connection', function(socket) {
         messageText = messageText.split('<').join('&lt;');
         messageText = messageText.split('>').join('&gt;');
 
+        // Sends the message to all connected persons
         io.in(socket.room).emit("message_to_client",
 			{
                 userid:   data["userid"],
@@ -53,4 +72,5 @@ io.sockets.on('connection', function(socket) {
 	});
 });
 
+// Debug message
 console.log('Start on port: '+httpPort);
