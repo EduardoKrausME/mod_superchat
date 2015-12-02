@@ -34,7 +34,7 @@ No seu servidor, execute a seguinte sequência de comandos para instalar o Node.
 # sudo ln -s /usr/local/bin/node /usr/bin/node
 ```
 
-Pronto...
+## Finalizando...
 
 Após instalado, é só navegar até a pasta que você instalou o módulo do Super Chat em [MOODLE_INSTALL]/mod/superchat/_node e execute o seguinte comando para instalar as dependências:
 
