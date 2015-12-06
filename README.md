@@ -12,6 +12,8 @@ Ou baixe em http://github.com/EduardoKrausME/mod_superchat/archive/master.zip
 
 > Se baixar o ZIP, não se esqueça de renomear a pasta de **mod_superchat-master** para **superchat**.
 
+Para instalar diretamente pelo painel do Moodle, use este link aqui: https://github.com/EduardoKrausME/mod_superchat/blob/master/superchat.zip
+
 Após, acesse a página de avisos do seu Moodle e instale normalmente o plug-in do Super Chat.
 
 Ele pedirá dois dados:

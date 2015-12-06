@@ -23,23 +23,38 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined ( 'MOODLE_INTERNAL' ) || die();
 
-$string['modulename'] = 'Super Chat';
-$string['modulenameplural'] = 'Super Chats';
-$string[ 'modulename_help' ] = '<p>O módulo Super Chat permite que os participantes possam conversar em tempo real.</p>';
-$string['superchatname'] = 'Nome desta sala';
-$string['superchatname_help'] = '';
-$string['superchat'] = 'superchat';
-$string['pluginadministration'] = 'Super Chat administration';
-$string['pluginname'] = 'Super Chat';
+$string[ 'modulename' ] = 'Super Chat';
+$string[ 'modulenameplural' ] = 'Super Chats';
+$string[ 'modulename_help' ] = '<p>The Super Chat module allows participants to converse in real time.</p>';
+$string[ 'superchatname' ] = 'Name this room';
+$string[ 'superchatname_help' ] = '';
+$string[ 'superchat' ] = 'superchat';
+$string[ 'pluginadministration' ] = 'Super Chat administration';
+$string[ 'pluginname' ] = 'Super Chat';
 
-$string['popupname'] = 'Abrir em Pop-up';
-$string['popupdescription'] = 'Abrir o Super Chat em Pop-up?';
+$string[ 'popupname' ] = 'Open in Pop-up';
+$string[ 'popupdescription' ] = 'Open Super Chat in Pop-up?';
 
 // view.php
-$string['studentsinthischat_title'] = 'Alunos deste Chat';
-$string['typeamessage'] = 'Digite uma mensagem';
-$string['send'] = 'SEND';
-$string['student'] = 'Aluno';
-$string['teacher'] = 'Professor';
+$string[ 'studentsinthischat_title' ] = 'Students in this Chat';
+$string[ 'typeamessage' ] = 'Type a message';
+$string[ 'send' ] = 'SEND';
+$string[ 'student' ] = 'Student';
+$string[ 'teacher' ] = 'Professor';
+
+$string[ 'viewreport' ] = 'View history of conversation';
+
+$string[ 'newmessages' ] = 'New posts. {$a} Click here to view';
+$string[ 'waitconnection' ] = 'Wait for connection to the chat server';
+$string[ 'error1connection' ] = 'Error connecting to the Chat server:';
+$string[ 'error2connection' ] = 'Failed to connect to the Chat server:';
+$string[ 'errornochat' ] = 'Course set for separate groups and you are not in any group.';
+$string[ 'errornogroup' ] = 'You do not have permission to view this group.';
+
+$string[ 'errornoguests' ] = 'The Super Chat can not be accessed by visitors.';
+
+//report.php
+$string['reporttitle'] = 'History chats';
+$string['reportnohistory'] = 'No history found';

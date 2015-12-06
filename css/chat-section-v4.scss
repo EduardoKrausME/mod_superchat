@@ -1,0 +1,128 @@
+/***************************
+ * User: kraus
+ * Date: 06/12/2015
+ * Time: 16:54
+ ***************************/
+#chat-section {
+    float       : left;
+    width       : 599px;
+    height      : 100%;
+    background  : #F0F1F3;
+    border-left : 1px solid #F0F1F3;
+    &.report {
+        float  : none;
+        width  : auto;
+        height : auto;
+    }
+    ul#chats {
+        width           : 600px;
+        margin          : 0;
+        list-style-type : none;
+        position        : fixed;
+        top             : 10px;
+        bottom          : 88px;
+        overflow        : scroll;
+        &.report {
+            position : inherit;
+            width    : auto;
+            top      : inherit;
+            bottom   : inherit;
+            overflow : inherit;
+        }
+        li {
+            margin  : 5px 0;
+            clear   : both;
+            padding : 0 12px;
+            .clear {
+                clear : both;
+            }
+            &.no-name {
+                margin : 2px 0;
+            }
+        }
+        .image {
+            clear      : both;
+            float      : left;
+            text-align : center;
+            overflow   : hidden;
+            width      : 50px;
+            height     : 50px;
+            img {
+                float         : left;
+                width         : 50px;
+                height        : 50px;
+                border-radius : 50%;
+            }
+            &.off {
+                height : 10px;
+            }
+        }
+        .message {
+            text-align       : left;
+            float            : left;
+            margin-bottom    : 3px;
+            padding          : 9px 19px;
+            min-width        : 170px;
+            min-height       : 10px;
+            max-width        : 455px;
+            background-color : #FFFFFF;
+            border-radius    : 3px;
+            box-shadow       : 0 3px 3px #E3E4E6;
+            color            : #637277;
+            line-height      : 1.4;
+            word-wrap        : break-word;
+            position         : relative;
+
+            b {
+                display     : block;
+                font-weight : 400;
+                color       : #999999 !important;
+                font-size   : 0.75em;
+            }
+            time {
+                position    : absolute;
+                bottom      : 0;
+                right       : 3px;
+                font-size   : 11px;
+                color       : rgba(0, 0, 0, .45);
+                line-height : 15px;
+                height      : 15px;
+            }
+        }
+
+        .you {
+            .message {
+                margin-left : 10px;
+            }
+        }
+        .me {
+            .image {
+                float : right;
+            }
+            .message {
+                background-color : #DCF8C6;
+                margin-right     : 10px;
+                float            : right;
+
+            }
+        }
+
+        .message-status {
+            text-transform : uppercase;
+            text-align     : center;
+            margin-top     : 0;
+            span {
+                font-size        : 12.5px;
+                line-height      : 21px;
+                display          : inline-block;
+                border-radius    : 7.5px;
+                color            : rgba(69, 90, 100, .95);
+                text-shadow      : 0 1px 0 rgba(255, 255, 255, .4);
+                background-color : rgba(225, 245, 254, .92);
+                padding          : 5px 12px 6px;
+                box-shadow       : 0 1px .5px rgba(0, 0, 0, .13);
+                margin           : 8px;
+            }
+        }
+    }
+}

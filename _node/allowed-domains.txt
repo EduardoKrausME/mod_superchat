@@ -1,0 +1,10 @@
+#  add only one domain per line.
+#  do not put http or bars.
+#  www.google.com.br is different from google.com.br.
+#  to liberate all domains put only *
+#  to liberate all subdomains place an asterisk
+#     Ex: * liberate all subdomains of .moodle20.com.br
+#         But return error if you try to access of moodle20.com.br
+
+*
+

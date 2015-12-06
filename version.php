@@ -25,12 +25,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined ( 'MOODLE_INTERNAL' ) || die();
 
 $plugin->component = 'mod_superchat';
-$plugin->version = 2015113003 ;
-$plugin->release = 'v0.2.1';
-$plugin->requires = 2014051200 ;
-$plugin->maturity = MATURITY_ALPHA;
+$plugin->version = 2015120605;
+$plugin->release = 'v0.4.1';
+$plugin->requires = 2014051200;
+$plugin->maturity = MATURITY_BETA;
 $plugin->cron = 0;
-$plugin->dependencies = array();
+$plugin->dependencies = array ();

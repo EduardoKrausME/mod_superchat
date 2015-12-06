@@ -49,16 +49,13 @@ define('SUPERCHAT_ULTIMATE_ANSWER', 42);
 function superchat_supports($feature) {
 
     switch($feature) {
-        case FEATURE_MOD_INTRO:
-            return true;
-        case FEATURE_SHOW_DESCRIPTION:
-            return true;
-        case FEATURE_GRADE_HAS_GRADE:
-            return false;
-        case FEATURE_BACKUP_MOODLE2:
-            return true;
-        default:
-            return null;
+        case FEATURE_GROUPS:                  return true;
+        case FEATURE_GROUPINGS:               return true;
+        case FEATURE_MOD_INTRO:               return true;
+        case FEATURE_SHOW_DESCRIPTION:        return true;
+        case FEATURE_GRADE_HAS_GRADE:         return false;
+        case FEATURE_BACKUP_MOODLE2:          return true;
+        default:                              return null;
     }
 }
 
@@ -230,11 +227,23 @@ function superchat_get_coursemodule_info($coursemodule) {
     $config->popup = true;
     if( $config->popup )
     {
-        $fullurl = "$CFG->wwwroot/mod/superchat/view.php?id=$coursemodule->id&amp;popup=1";
+        $fullurl = "$CFG->wwwroot/mod/superchat/view.php?id=$coursemodule->id";
         $width  = 620;
         $height = 480;
         $wh = "width=$width,height=$height,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes";
         $info->onclick = "window.open('$fullurl', '', '$wh'); return false;";
     }
     return $info;
+}
+
+/**
+ * Adds module specific settings to the settings block
+ *
+ * @param settings_navigation $settings The settings navigation object
+ * @param navigation_node $chatnode The node to add module settings to
+ */
+function superchat_extend_settings_navigation(settings_navigation $settings, navigation_node $superchatnode)
+{
+    global $PAGE;
+    $superchatnode->add(get_string('viewreport', 'superchat'), new moodle_url('/mod/superchat/report.php', array('id'=>$PAGE->cm->id)));
 }

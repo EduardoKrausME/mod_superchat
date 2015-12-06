@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <XMLDB PATH="mod/superchat/db" VERSION="20101203" COMMENT="XMLDB file for Moodle mod/superchat"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
-  <TABLES>
-    <TABLE NAME="superchat" COMMENT="Default comment for superchat, please edit me">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
-        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Course superchat activity belongs to"/>
-        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances"/>
-        <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="General introduction of the superchat activity"/>
-        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)"/>
-        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"/>
-        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
-      </INDEXES>
-    </TABLE>
-  </TABLES>
+    <TABLES>
+        <TABLE NAME="superchat" COMMENT="Default comment for superchat, please edit me">
+            <FIELDS>
+                <FIELD NAME="id"            TYPE="int"  LENGTH="10"  NOTNULL="true" SEQUENCE="true"  UNSIGNED="true" />
+                <FIELD NAME="course"        TYPE="int"  LENGTH="10"  NOTNULL="true" SEQUENCE="false" UNSIGNED="true"              COMMENT="Course superchat activity belongs to"/>
+                <FIELD NAME="name"          TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"                              COMMENT="name field for moodle instances"/>
+                <FIELD NAME="intro"         TYPE="text"              NOTNULL="true" SEQUENCE="false"                              COMMENT="General introduction of the superchat activity"/>
+                <FIELD NAME="introformat"   TYPE="int"  LENGTH="4"   NOTNULL="true" SEQUENCE="false" UNSIGNED="true"  DEFAULT="0" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)"/>
+                <FIELD NAME="timecreated"   TYPE="int"  LENGTH="10"  NOTNULL="true" SEQUENCE="false" UNSIGNED="true" />
+                <FIELD NAME="timemodified"  TYPE="int"  LENGTH="10"  NOTNULL="true" SEQUENCE="false" UNSIGNED="true"  DEFAULT="0" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+            </INDEXES>
+        </TABLE>
+
+        <TABLE NAME="superchat_messages" COMMENT="Stores all the actual chat messages">
+            <FIELDS>
+                <FIELD NAME="id"            TYPE="int"  LENGTH="10" NOTNULL="true"             SEQUENCE="true"/>
+                <FIELD NAME="superchatid"   TYPE="int"  LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="userid"        TYPE="int"  LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="groupid"       TYPE="int"  LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="message"       TYPE="text"             NOTNULL="true"             SEQUENCE="false"/>
+                <FIELD NAME="timestamp"     TYPE="int"  LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary"     TYPE="primary" FIELDS="id"/>
+                <KEY NAME="superchatid" TYPE="foreign" FIELDS="superchatid" REFTABLE="chat" REFFIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="userid"                 UNIQUE="false" FIELDS="userid"/>
+                <INDEX NAME="groupid"                UNIQUE="false" FIELDS="groupid"/>
+                <INDEX NAME="timestamp-superchatid"  UNIQUE="false" FIELDS="timestamp, superchatid"/>
+            </INDEXES>
+        </TABLE>
+
+    </TABLES>
 </XMLDB>

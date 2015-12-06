@@ -1,0 +1,300 @@
+/*------------- Reset browser differences ------------- */
+
+* {
+    padding : 0;
+    margin  : 0;
+}
+
+/* ------------ Body styles ------------ */
+
+body {
+    background-color : #DADBD4;
+    font-size        : 13.6px;
+    line-height      : 19px;
+    font-family      : 'Open Sans', sans-serif;
+    color            : #637277;
+}
+
+/* ------ Chat Screen ------ */
+section {
+    width         : 800px;
+    position      : fixed;
+    top           : 0;
+    bottom        : 0;
+    left          : 50%;
+    border-radius : 7px;
+    margin        : 10px 0 10px -400px;
+    overflow      : hidden;
+    #user-section {
+        float      : left;
+        width      : 200px;
+        background : #FFFFFF;
+        height     : 100%;
+        margin     : 0;
+        .students {
+            height     : 18px;
+            padding    : 8px;
+            background : #EEEEEE;
+            font-size  : 1.3em;
+            text-align : center;
+            select,
+            option {
+                font-size   : 17px;
+                border      : none;
+                width       : 100%;
+                padding-top : 15px;
+            }
+        }
+        ul#users {
+            list-style-type : none;
+            position        : fixed;
+            top             : 44px;
+            bottom          : 10px;
+            overflow        : scroll;
+            width           : 200px;
+            li {
+                padding       : 5px;
+                height        : 40px;
+                border-bottom : 1px solid rgba(117, 117, 117, 0.22);
+                position      : relative;
+                img {
+                    float         : left;
+                    width         : 40px;
+                    height        : 40px;
+                    border-radius : 50%;
+                    margin-right  : 10px;
+                }
+                .user-name {
+                    float             : left;
+                    position          : relative;
+                    overflow          : hidden;
+                    text-overflow     : ellipsis;
+                    white-space       : nowrap;
+                    -webkit-box-flex  : 1;
+                    -webkit-flex-grow : 1;
+                    -ms-flex-positive : 1;
+                    flex-grow         : 1;
+                    width             : 140px;
+                    padding-top       : 2px;
+                }
+                .user-permission {
+                    float : left;
+                    width : 140px;
+                    color : #B5C0C3;
+                }
+                .user-status {
+                    position         : absolute;
+                    height           : 10px;
+                    width            : 10px;
+                    background-color : #ED6F3D;
+                    border-radius    : 50%;
+                    right            : 3px;
+                    top              : 3px;
+                    &.online {
+                        background-color : #06ED79;
+                    }
+                }
+            }
+        }
+    }
+
+    @import 'chat-section-v4';
+}
+
+/* ------------ chatfooter styles ------------ */
+
+#chatfooter {
+    position      : fixed;
+    bottom        : 10px;
+    width         : 600px;
+    border-radius : 0 0 9px 0;
+
+    .new-message {
+        text-align : center;
+        display    : none;
+        cursor     : pointer;
+        .background {
+            background    : rgba(148, 147, 147, 0.26);
+            border-radius : 6px;
+            padding       : 3px;
+        }
+        .rotate {
+            -webkit-transform : rotate(90deg);
+            -moz-transform    : rotate(90deg);
+            -ms-transform     : rotate(90deg);
+            -o-transform      : rotate(90deg);
+            transform         : rotate(90deg);
+            display           : inline-block;
+            font-size         : 20px;
+        }
+    }
+
+    #message-area {
+        background-color : #FFFFFF;
+        padding          : 17px;
+        position         : relative;
+        #message-placeholder {
+            position               : absolute;
+            top                    : 0;
+            left                   : 0;
+            color                  : #999999;
+            pointer-events         : none;
+            transition             : opacity .08s linear;
+            font-size              : 15px;
+            line-height            : 20px;
+            z-index                : 0;
+            -webkit-font-smoothing : antialiased;
+            padding                : 11px;
+            background-color       : #F9F9F9;
+        }
+        #message {
+            width         : 423px;
+            overflow      : auto;
+            display       : block;
+            float         : left;
+            margin        : 0 auto;
+            border        : 1px solid #CCCCCC;
+            border-radius : 2px;
+            padding       : 11px;
+            resize        : none;
+            font          : inherit;
+            color         : inherit;
+            word-wrap     : break-word;
+            white-space   : pre-wrap;
+            min-height    : 20px;
+            max-height    : 76px;
+            overflow-y    : auto;
+            overflow-x    : hidden;
+            outline       : none;
+            z-index       : 3;
+            position      : relative;
+            &.with-text {
+                background-color : #F9F9F9;
+            }
+        }
+        #submit {
+            width            : 100px;
+            height           : 44px;
+            float            : right;
+            text-align       : center;
+            background-color : #73B4D4;
+            display          : block;
+            margin           : 0 auto;
+            border           : none;
+            box-shadow       : 3px 3px 3px #EFEDEE;
+            border-radius    : 2px;
+            color            : white;
+            font-weight      : bold;
+            font-size        : 17px;
+            outline          : none;
+            cursor           : pointer;
+            &.disabled {
+                background-color : #B5B5B5;
+            }
+        }
+        .relative {
+            position : relative;
+        }
+    }
+    .status-area {
+        background-color : #FFFFFF;
+        padding          : 1px;
+        .wait-area,
+        .error-area {
+            padding          : 10px;
+            border-radius    : 7px;
+            border           : 1px solid #FFE27D;
+            background-color : #F1D479;
+            color            : #5C4D26;
+            margin           : 10px;
+            text-align       : center;
+            span {
+                font-weight : bold;
+                color       : #FBDBDA;
+                display     : block;
+            }
+        }
+        .error-area {
+            border           : 1px solid #E08870;
+            background-color : #D25262;
+            color            : #FFFFFF;
+        }
+    }
+}
+
+.no-text {
+    -moz-user-select    : none;
+    -webkit-user-select : none;
+    -ms-user-select     : none;
+    user-select         : none;
+    -o-user-select      : none;
+    cursor              : default;
+}
+
+@media only screen and (max-width : 799px) {
+    #user-section {
+        display : none;
+    }
+    section {
+        width         : 100%;
+        position      : initial;
+        top           : 0;
+        bottom        : initial;
+        left          : initial;
+        border-radius : 0;
+        margin        : 0;
+        overflow      : hidden;
+        #chat-section {
+            float : none;
+            width : 100%;
+            ul#chats {
+                width    : 100%;
+                position : fixed;
+                top      : 0;
+                bottom   : 64px;
+            }
+        }
+    }
+    #chatfooter {
+        width         : auto;
+        border-radius : 0;
+        bottom        : 0;
+        left          : 0;
+        right         : 0;
+        #message-area {
+            padding : 10px;
+        }
+        .wait-area,
+        .error-area {
+            padding : 10px;
+        }
+    }
+}
+
+@media only screen and (max-width : 499px) {
+    section {
+        #chat-section {
+            ul#chats {
+                bottom : 58px;
+            }
+        }
+    }
+    #chatfooter {
+        width         : auto;
+        border-radius : 0;
+        bottom        : 0;
+        left          : 0;
+        right         : 0;
+        #message-area {
+            padding : 7px;
+        }
+        .wait-area,
+        .error-area {
+            padding : 7px;
+        }
+        #submit {
+            width : 81px;
+        }
+    }
+}
+
