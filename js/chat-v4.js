@@ -16,11 +16,16 @@ $( function() {
         ultimaDataPostada   = getDataAtual();
 
     // Connects to the server node js
+
+    console.log('Vamos conectar');
+
     var socketio;
     try {
         socketio = io.connect( $( '#server_host' ).val() + ":" + $( '#server_port' ).val() );
     } catch ( error ) {
-        showError ( 1 );
+        console.log(error);
+        console.log( 'Error connect server' );
+        showError ( 1, 'Error connect server' );
     }
 
     // When connecting make:
@@ -30,10 +35,9 @@ $( function() {
         var authUrl = url[ 0 ];
         socketio.emit( "login",
             {
-                auth_url     : authUrl,
-                session_id   : $( '#session_id' ).val(),
-                session_name : $( '#session_name' ).val(),
-                room         : server_room.val()
+                auth_url    : authUrl,
+                session_tmp : $( '#session_tmp' ).val(),
+                room        : server_room.val()
             }
         );
     });
@@ -47,6 +51,8 @@ $( function() {
     // When you receive a new message do:
     socketio.on( "logof", function ( data )
     {
+        console.log( 'logof' );
+        console.log( data );
         showError ( 2, data );
     });
 

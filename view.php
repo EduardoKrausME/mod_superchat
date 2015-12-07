@@ -67,7 +67,6 @@ if ( isguestuser () )
     exit;
 }
 
-
 /**
  * $groupmode == 0
  *    Nenhum Grupo
@@ -226,14 +225,19 @@ if( $groupmode == 2 )
 
             $server_room = md5 ( $CFG->wwwroot ) . '_' . $cm->id . '_' . $currentgroupid;
 
+            $session_tmp_id = md5 ( session_id () );
+
+            $superchat_node_auth = new stdClass();
+            $superchat_node_auth->userid  = $USER->id;
+            $superchat_node_auth->session = $session_tmp_id;
+            $DB->insert_record ( 'superchat_node_auth', $superchat_node_auth );
+
             ?>
             <input type="hidden" name="server_room"  id="server_room"  value="<?php echo $server_room ?>">
             <input type="hidden" name="server_host"  id="server_host"  value="<?php echo $config->server ?>">
             <input type="hidden" name="server_port"  id="server_port"  value="<?php echo $config->port ?>">
 
-            <input type="hidden" name="session_id"   id="session_id"   value="<?php echo session_id () ?>">
-            <input type="hidden" name="session_name" id="session_name" value="<?php echo session_name () ?>">
-
+            <input type="hidden" name="session_tmp"  id="session_tmp"  value="<?php echo $session_tmp_id ?>">
 
             <div class="new-message">
                 <span class="background">

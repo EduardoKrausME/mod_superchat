@@ -37,11 +37,14 @@ io.sockets.on( 'connection', function( socket )
 
         var request = require( "request" );
 
-        var url = data.auth_url + "json-auth.php?sessionid=" + data.session_id + '&sessionname=' + data.session_name;
+        var url = data.auth_url + "json-auth.php?session_tmp=" + data.session_tmp;
         request( {
             url: url,
             json: true
         }, function ( error, response, reply ) {
+
+            console.log(error);
+            console.log(reply);
 
             if ( !error && response.statusCode === 200 )
             {
@@ -64,7 +67,7 @@ io.sockets.on( 'connection', function( socket )
                     saveHistoryMoodle( historyUrl[ data.room ], history, data.room )
             }
             else{
-                socket.emit( 'logof', reply );
+                socket.emit( 'logof', "Login error" );
                 socket.leave( socket.room );
             }
         } );

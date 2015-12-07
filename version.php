@@ -28,9 +28,11 @@
 defined ( 'MOODLE_INTERNAL' ) || die();
 
 $plugin->component = 'mod_superchat';
-$plugin->version = 2015120701;
-$plugin->release = 'v0.4.2';
+$plugin->version = 2015120703 ;
+$plugin->release = 'v0.5.1';
 $plugin->requires = 2014051200;
 $plugin->maturity = MATURITY_BETA;
 $plugin->cron = 0;
 $plugin->dependencies = array ();
+
+
