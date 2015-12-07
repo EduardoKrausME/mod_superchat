@@ -65,6 +65,11 @@ $( function() {
 
         // resize background area
         resizeBackgroundMessage();
+
+        // Clear área message
+        chats.html( '' );
+        // Load history message
+        loadHistoryPreviousDate();
     });
 
     // process list on-line user
@@ -105,9 +110,45 @@ $( function() {
 
     });
 
+    function loadHistoryPreviousDate()
+    {
+        $.getJSON('json-history.php?id='+server_room.val(), function( data ) {
+            console.log(data.numtotal);
+            console.log(data.messages);
+
+            messages = data.messages;
+
+            if( data.numtotal > 40 )
+                addMessageStatus( '<a href="report.php'+document.location.search+'" target="_blank">Ver todas as '+data.numtotal+' mensagens.</a>' );
+
+            var time = 0;
+            for( var key in messages )
+            {
+                var msg = messages[key];
+                if( !time )
+                    time = msg.timestamp;
+
+                var date = new Date(  );
+                date.setTime( msg.timestamp * 1000 );
+                var hora = addZero( date.getHours() ) + ':' + addZero( date.getMinutes() );
+
+                printMessage(msg.message, msg.userid, 'image.php?id='+msg.userid, msg.fullname, hora);
+            }
+        });
+    }
+
     socketio.on( "message_to_client", function ( data )
     {
         var messageText = data.message;
+        var userid      = data.userid;
+        var photo       = data.photo;
+        var fullname    = data.fullname;
+
+        printMessage( messageText, userid, photo, fullname, getHoraAtual());
+    });
+
+    function printMessage( messageText, userid, photo, fullname, hora )
+    {
         messageText = messageText.split( "\n" ).join( "<br/>" );
 
         var _ultimaDataPostada = getDataAtual();
@@ -118,14 +159,14 @@ $( function() {
         ultimaDataPostada = _ultimaDataPostada;
 
         var who = 'you';
-        if ( data.userid == user.userid ) {
+        if ( userid == user.userid ) {
             who = 'me';
             autoSroll = true;
         }
 
         // Mounts the message
         var li = null;
-        if( ultimaMensagemDe == data.userid )
+        if( ultimaMensagemDe == userid )
         {
             // If the last message sent chatting is not that person,
             // places the image
@@ -134,7 +175,7 @@ $( function() {
                     '<div class="image off"></div>' +
                     '<div class="message">'+
                     '<div>' + messageText + '</div>' +
-                        '<time>'+getHoraAtual()+'</time>' +
+                        '<time>'+hora+'</time>' +
                     '</div>' +
                     '<div class="clear"></div>' +
                 '</li>' );
@@ -144,25 +185,25 @@ $( function() {
             li = $( 
                 '<li class=' + who + '>' +
                     '<div class="image">' +
-                        '<img src=' + data.photo + ' />' +
+                        '<img src=' + photo + ' />' +
                     '</div>' +
                     '<div class="message">'+
-                        '<b class="no-text">' + data.fullname + '</b>' +
+                        '<b class="no-text">' + fullname + '</b>' +
                         '<div>' + messageText + '</div>' +
-                        '<time class="no-text">'+getHoraAtual()+'</time>' +
+                        '<time class="no-text">'+hora+'</time>' +
                     '</div>' +
                     '<div class="clear"></div>' +
                 '</li>' );
         }
 
         // Guard who wrote
-        ultimaMensagemDe = data.userid;
+        ultimaMensagemDe = userid;
 
         // add to actual chat
         chats.append( li );
         // Scroll to booton
         scrollToBottom();
-    });
+    }
 
     if( document.getElementById('form_select_group') )
     {
@@ -305,5 +346,19 @@ $( function() {
         chatfooter.find( '#wait-area' ).hide();
         chatfooter.find( '.status-area-error' ).hide();
         chatfooter.find( '#error-area' + numError ).show().find('span').html( data );
+    }
+
+    function getQueryParams(qs) {
+        qs = qs.split('+').join(' ');
+
+        var params = {},
+            tokens,
+            re = /[?&]?([^=]+)=([^&]*)/g;
+
+        while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+        }
+
+        return params;
     }
 });

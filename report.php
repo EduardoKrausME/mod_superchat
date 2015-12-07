@@ -6,7 +6,7 @@
  ***************************/
 
 
-/// This page prints reports and info about Super Chats
+/// This page generates the history of Super chat
 
 require_once('../../config.php');
 require_once('lib.php');

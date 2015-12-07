@@ -1,4 +1,4 @@
-console.log( 'v0.4.1' );
+console.log( 'v0.4.2' );
 
 // Node JS port
 var httpPort = 8080;
@@ -54,7 +54,14 @@ io.sockets.on( 'connection', function( socket )
                 socket.join( data.room );
                 socket.emit( 'joinroom', reply );
 
-                getAllUserOnline( data.room );
+                sendAllUserOnline( data.room );
+
+                //
+                var history  = historyMessages[ data.room ];
+                historyMessages[ data.room ] = {};
+
+                if( Object.keys(history).length )
+                    saveHistoryMoodle( historyUrl[ data.room ], history, data.room )
             }
             else{
                 socket.emit( 'logof', reply );
@@ -71,7 +78,7 @@ io.sockets.on( 'connection', function( socket )
         // leave the room
         socket.leave( socket.room );
 
-        getAllUserOnline( socket.room );
+        sendAllUserOnline( socket.room );
     } );
 
     /**
@@ -103,7 +110,7 @@ io.sockets.on( 'connection', function( socket )
 	} );
 } );
 
-function getAllUserOnline( room )
+function sendAllUserOnline( room )
 {
     var onlineUsers = [];
     for ( var _id in io.sockets.sockets )
@@ -149,13 +156,13 @@ function domainIsValid( headers )
             return true;
     }
 
-    console.log( 'Domain not Found' );
+    console.log( domainReferer + ' Domain not Found' );
     return false;
 }
 
 function saveHistoryMoodleinterval()
 {
-    setTimeout( saveHistoryMoodleinterval, 10000 );
+    setTimeout( saveHistoryMoodleinterval, 60000 );
 
     historyNumMessages = 0;
     var tmpHistoryMessages = historyMessages;
@@ -177,7 +184,7 @@ saveHistoryMoodleinterval();
 
 function saveHistoryMoodle( auth_url, historyMessages, room )
 {
-    console.log(room);
+    //console.log(room);
     var request = require( 'request' );
 
     var options = {
@@ -191,8 +198,8 @@ function saveHistoryMoodle( auth_url, historyMessages, room )
     };
 
     request( options, function ( error, response, body ){
-        console.log(error);
-        console.log(body);
+        //console.log(error);
+        //console.log(body);
     });
 }
 
