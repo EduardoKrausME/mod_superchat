@@ -5,7 +5,7 @@
 Navegue até a pasta mod do seu Moodle e execute o seguinte comando:
 
 ```
-# git clone https://github.com/EduardoKrausME/mod_superchat.git superchat 
+$ git clone https://github.com/EduardoKrausME/mod_superchat.git superchat 
 ```
 
 Ou baixe em http://github.com/EduardoKrausME/mod_superchat/archive/master.zip
@@ -40,10 +40,41 @@ No seu servidor, execute a seguinte sequência de comandos para instalar o Node.
 # sudo ln -s /usr/local/bin/node /usr/bin/node
 ```
 
+### A Segurança do Node.js
+
+Na pasta ``_node/`` tem um arquivo ``allowed-domains.txt``. Este arquivo serve para liberar quais domínios que estão hospedados os Moodles podem se conectar ao Node.JS
+
+Para liberar todos os sub-domínios é só colocar um asterisco:
+
+```
+*.moodle20.com.br
+```
+
+Um asterisco libera tudo:
+
+```
+*
+```
+
+Ou somente liberar um domínio
+
+```
+www.moodle20.com.br
+```
+
+Ou pode adicionar mais de um domínio, um por linha:
+
+```
+moodle1.moodle20.com.br
+moodle2.moodle20.com.br
+moodle3.moodle20.com.br
+```
+
+Sugestão de mais segurança?
+
 ## Finalizando...
 
 Após instalado, é só navegar até a pasta que você instalou o módulo do Super Chat em [MOODLE_INSTALL]/mod/superchat/_node e execute o seguinte comando para instalar as dependências:
-
 
 ```
 # npm install
