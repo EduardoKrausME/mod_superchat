@@ -169,7 +169,7 @@ if( $groupmode == 2 )
                 // list all users
                 if( $groupmode == 2 )
                 {
-                    $query = "SELECT roleid, u.*
+                    $query = "SELECT DISTINCT roleid, u.*
                                 FROM {role_assignments} as a
                                 JOIN {user} as u ON a.userid=u.id
                                 JOIN {groups_members} gm ON u.id = gm.userid
@@ -180,7 +180,7 @@ if( $groupmode == 2 )
                 }
                 else
                 {
-                    $query = "SELECT roleid, u.*
+                    $query = "SELECT DISTINCT roleid, u.*
                                 FROM {role_assignments} as a
                                 JOIN {user} as u ON a.userid=u.id
                               WHERE contextid = ?

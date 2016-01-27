@@ -42,7 +42,7 @@ $string[ 'studentsinthischat_title' ] = 'Students in this Chat';
 $string[ 'typeamessage' ] = 'Type a message';
 $string[ 'send' ] = 'SEND';
 $string[ 'student' ] = 'Student';
-$string[ 'teacher' ] = 'Professor';
+$string[ 'teacher' ] = 'Teacher';
 
 $string[ 'viewreport' ] = 'View history of conversation';
 

@@ -76,8 +76,6 @@ function superchat_add_instance(stdClass $superchat, mod_superchat_mod_form $mfo
 
     $superchat->timecreated = time();
 
-    // You may have to add extra stuff in here.
-
     $superchat->id = $DB->insert_record('superchat', $superchat);
 
     return $superchat->id;
@@ -100,8 +98,6 @@ function superchat_update_instance(stdClass $superchat, mod_superchat_mod_form $
     $superchat->timemodified = time();
     $superchat->id = $superchat->instance;
 
-    // You may have to add extra stuff in here.
-
     $result = $DB->update_record('superchat', $superchat);
 
     return $result;
@@ -123,8 +119,6 @@ function superchat_delete_instance($id) {
     if (! $superchat = $DB->get_record('superchat', array('id' => $id))) {
         return false;
     }
-
-    // Delete any dependent records here.
 
     $DB->delete_records('superchat', array('id' => $superchat->id));
 

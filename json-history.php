@@ -5,6 +5,7 @@
  * Time: 19:15
  ***************************/
 
+ob_start();
 
 require_once ( dirname ( dirname ( dirname ( __FILE__ ) ) ) . '/config.php' );
 require_once ( dirname ( __FILE__ ) . '/lib.php' );
@@ -21,7 +22,6 @@ if ( strpos ( $id, '_' ) )
     $currentgroupid = $rooms[ 1 ];
 }
 
-
 if( $id )
 {
     $cm = get_coursemodule_from_id ( 'superchat', $id, 0, false, MUST_EXIST );
@@ -35,7 +35,6 @@ $sql = 'SELECT COUNT(*) AS num
         WHERE sm.groupid = ?
           AND sm.superchatid = ?';
 $count = $DB->get_record_sql ( $sql, array ( $currentgroupid, $id ) );
-
 
 $minrows = $count->num - 40;
 if ( $minrows < 0 )
@@ -63,6 +62,8 @@ foreach($historys as $history)
         'fullname'  => $history->firstname . ' ' . $history->lastname
     );
 }
+
+ob_clean();
 
 header ( 'Content-Type: application/json' );
 echo json_encode ( $returnHistory );

@@ -73,7 +73,7 @@ $( function() {
         resizeBackgroundMessage();
 
         // Clear área message
-        chats.html( '' );
+        chats.find('li').remove();
         // Load history message
         loadHistoryPreviousDate();
     });
